@@ -46,3 +46,8 @@ jar {
         attributes('Main-Class': 'com.app.App')
     }
 }
+
+task publish(type: Copy) {
+    from "build/libs/gradle-project.jar"
+    into "../artifacts"
+}
