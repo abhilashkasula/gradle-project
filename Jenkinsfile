@@ -12,7 +12,7 @@ pipeline {
       agent any
       steps {
         sh '''ls;
-echo MY_ENV'''
+echo $MY_ENV'''
         archiveArtifacts(artifacts: 'build/test-results/*.xml', allowEmptyArchive: true)
       }
     }
