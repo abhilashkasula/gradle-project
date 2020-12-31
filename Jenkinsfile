@@ -1,15 +1,31 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'alpine:latest'
+    }
+
+  }
   stages {
     stage('Test') {
+      agent {
+        docker {
+          image 'alpine:latest'
+        }
+
+      }
+      environment {
+        MY_ENV = 'hello'
+      }
       steps {
         sh './gradlew clean test'
       }
     }
 
     stage('Publish Artifacts') {
+      agent any
       steps {
-        sh 'echo $MY_ENV'
+        sh '''ls;
+echo MY_ENV'''
         archiveArtifacts(artifacts: 'build/test-results/*.xml', allowEmptyArchive: true)
       }
     }
