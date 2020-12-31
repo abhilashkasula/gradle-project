@@ -2,22 +2,8 @@ pipeline {
   agent any
   stages {
     stage('Test') {
-      environment {
-        MY_ENV = 'hello'
-      }
-      parallel {
-        stage('Test') {
-          steps {
-            sh './gradlew clean test'
-          }
-        }
-
-        stage('Build') {
-          steps {
-            sh './gradlew clean build -x test'
-          }
-        }
-
+      steps {
+        sh './gradlew clean test'
       }
     }
 
