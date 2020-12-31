@@ -6,17 +6,12 @@ pipeline {
       steps {
         sh './gradlew clean test'
       }
-    }
-
-    stage('Publish Artifacts') {
-      agent any
-      steps {
-        sh '''ls;
-echo $MY_ENV'''
-        archiveArtifacts(artifacts: 'build/test-results/*.xml', allowEmptyArchive: true)
+      post {
+        always {
+          publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'Test HTML Report', reportTitles: 'report'])
+        }
       }
     }
-
   }
   environment {
     MY_ENV = 'hello'
