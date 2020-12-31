@@ -1,21 +1,8 @@
 pipeline {
-  agent {
-    docker {
-      image 'alpine:latest'
-    }
-
-  }
+  agent any
   stages {
     stage('Test') {
-      agent {
-        docker {
-          image 'alpine:latest'
-        }
-
-      }
-      environment {
-        MY_ENV = 'hello'
-      }
+      agent any
       steps {
         sh './gradlew clean test'
       }
@@ -30,5 +17,8 @@ echo MY_ENV'''
       }
     }
 
+  }
+  environment {
+    MY_ENV = 'hello'
   }
 }
